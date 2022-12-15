@@ -1,0 +1,14 @@
+---
+apiVersion: 01
+kind: Pod
+metadata:
+  name: java-web-app-pod
+  labels:
+    app: maven-web-app
+spec: 
+  containers: 
+    - name: java-web-app-container
+      image: manashswain7008/maven-web-app
+      ports:
+       - conainersPorts : 8080
+...

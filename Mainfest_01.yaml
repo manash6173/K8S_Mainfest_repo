@@ -1,0 +1,17 @@
+---
+apiVersion: 01
+kind: Pod
+metadata:
+  name: java-web-app
+  lebels:
+    app": maven-web-app
+spec: 
+  conainers: 
+    - name: java-web-app-container
+      imagae: 
+      ports:
+       - conainersPorts : 8080
+
+
+
+...
