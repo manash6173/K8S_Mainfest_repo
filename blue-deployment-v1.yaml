@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-web-app-deploy
+spec:
+  replicas: 2
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      app: spring-boot-web-app
+      version: v1
+      colour: blue
+  template:
+      metadata:
+        name: spring-boot-web-app-pod
+        labels:
+          app: spring-boot-web-app
+          version: v1
+          colour: blue
+      spec:
+        containers:
+          - name: spring-boot-web-app-container
+            image: manashswain7008/spring-boot-web-app
+            ports:
+              - containerPort: 8080
+...
