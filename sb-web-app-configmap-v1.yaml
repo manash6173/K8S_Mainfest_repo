@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sb-k8s-configmap-deploy
+spec:
+  replicas: 2
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      app: sb-k8s-configmap
+      version: v1
+      colour: blue
+  template:
+      metadata:
+        name: sb-k8s-configmap-pod
+        labels:
+          app: sb-k8s-configmap
+          version: v1
+          colour: blue
+      spec:
+        containers:
+          - name: sb-k8s-configmap-container
+            image: manashswain7008/sb-k8s-configmap
+            ports:
+              - containerPort: 8080
+            env:
+              - name: WISH_MSG
+                valueFrom:
+                  configMapKeyRef: 
+                    name: sb-configmap
+                    key: wish
+              - name: SECRET_MSG
+                valueFrom:
+                  configMapKeyRef:
+                    name: sb-configmap
+                    key: secretMsg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sb-k8s-configmap-service
+spec:
+  type: NodePort
+  selector:
+    app: sb-k8s-configmap
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30002
+...
