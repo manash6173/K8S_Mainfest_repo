@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-web-app-deployment
+spec: 
+  replicas: 2
+  selector:
+    matchLabels:
+      app: maven-web-app
+      version: v2 
+      colour: green
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: maven-web-app-pod
+      labels:
+        app: maven-web-app
+        version: v2 
+        colour: green
+    spec:
+      containers:
+        - name: maven-web-app-container
+          image: manashswain7008/maven-web-app
+          ports:
+            - containerPort: 8080
+...
